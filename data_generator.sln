@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "data_generator", "data_generator.csproj", "{A72C856A-E363-4313-B7F3-23EB6CB7E9A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "data_generator", "data_generator.csproj", "{A72C856A-E363-4313-B7F3-23EB6CB7E9A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lukasz", "lukasz", "{175A4FF7-4ECE-4724-8714-35FAD66C43DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +20,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A72C856A-E363-4313-B7F3-23EB6CB7E9A7} = {175A4FF7-4ECE-4724-8714-35FAD66C43DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {103CA2DA-A540-42FA-BECD-A58B7A488017}

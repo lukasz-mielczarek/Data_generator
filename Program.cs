@@ -48,8 +48,11 @@ namespace data_generator
             /*UserPlaylistGenerator userPlaylistGenerator = new UserPlaylistGenerator();
             await userPlaylistGenerator.PopulateUserPlaylists(con);*/
 
-            PlaylistGenerator playlistGenerator = new PlaylistGenerator();
-            await playlistGenerator.PopulatePlaylists(con);
+            /*PlaylistGenerator playlistGenerator = new PlaylistGenerator();
+            await playlistGenerator.PopulatePlaylists(con);*/
+
+            FollowersGenerator followersGenerator = new FollowersGenerator();
+            await followersGenerator.PopulateFollowers(con);
 
 
 

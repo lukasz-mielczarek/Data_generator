@@ -10,7 +10,7 @@ namespace data_generator
     {
         static async Task Main()
         {
-            List<string> names = new List<string>();
+            /*List<string> names = new List<string>();
             List<string> secondnames = new List<string>();
             using (var reader = new StreamReader(@"C:\Users\Łukasz\source\repos\data_generator\data_generator\data\us-500.csv"))
             {
@@ -26,14 +26,15 @@ namespace data_generator
             }
             NameGenerator nameGenerator = new NameGenerator();
             var allUsers = nameGenerator.generete_names(names, secondnames);
+            */
             var cs = "Host=localhost;Username=postgres;Password=mam5lat;Database=SongDB";
 
             await using var con = new NpgsqlConnection(cs);
             await con.OpenAsync();
 
-            
 
-            foreach (User user in allUsers)
+
+            /*foreach (User user in allUsers)
             {
                 var queryString = $"INSERT INTO \"Users\" VALUES({user.Id}, '{user.Username}', '{user.Email}' ,'{user.Hash}',{user.Subscription})";
                 Console.WriteLine(queryString);
@@ -43,7 +44,15 @@ namespace data_generator
                     await cmd.ExecuteNonQueryAsync();
                     
                 }
-            }
+            }*/
+            /*UserPlaylistGenerator userPlaylistGenerator = new UserPlaylistGenerator();
+            await userPlaylistGenerator.PopulateUserPlaylists(con);*/
+
+            PlaylistGenerator playlistGenerator = new PlaylistGenerator();
+            await playlistGenerator.PopulatePlaylists(con);
+
+
+
 
             
 

@@ -3,10 +3,12 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Npgsql;
 
 namespace data_generator
 {
-    public class NameGenerator
+    public class UserGenerator
     {
         Random random = new Random();
         public string RandomPassword(int size = 0)
@@ -28,8 +30,22 @@ namespace data_generator
             
 
         }
-            public List<User> generete_names(List<string> names,List<string> secondnames)
+            public List<User> generete_names()
         {
+            List<string> names = new List<string>();
+            List<string> secondnames = new List<string>();
+            using (var reader = new StreamReader(@"C:\Users\Łukasz\source\repos\data_generator\data_generator\data\us-500.csv"))
+            {
+                
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    names.Add(values[0]);
+                    secondnames.Add(values[1]);
+                }
+            }
             
 
             List<User> usernames = new List<User>();
@@ -62,10 +78,31 @@ namespace data_generator
 
 
 
-            Console.WriteLine(usernames.Count);
+            
             return usernames;
         }
+        
+            public async Task PopulateUsers(NpgsqlConnection con)
+        {
+            var allUsers = generete_names();
+            foreach (User user in allUsers)
+            {
+                var queryString = $"INSERT INTO \"Users\" VALUES({user.Id}, '{user.Username}', '{user.Email}' ,'{user.Hash}',{user.Subscription})";
+                Console.WriteLine(queryString);
+                await using (var cmd = new NpgsqlCommand(queryString, con))
+                {
+
+                    await cmd.ExecuteNonQueryAsync();
+
+                }
+            }
+        }
+            
+            
+
+
+        
     }
 
- }  
+}  
 

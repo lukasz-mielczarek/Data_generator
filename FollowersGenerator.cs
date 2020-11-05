@@ -10,7 +10,7 @@ namespace data_generator
     {
         public async Task PopulateFollowers(NpgsqlConnection con)
         {
-            NameGenerator nameGenerator = new NameGenerator();
+            
 
             Random random = new Random();
             for (int i = 1; i < 100001; i++)

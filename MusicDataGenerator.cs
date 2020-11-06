@@ -13,13 +13,13 @@ namespace data_generator
     {
         public async Task PopulateDataMusic(NpgsqlConnection conn)
         {
-            
-            
+
+
 
             var httpClient = HttpClientFactory.Create();
 
             // Looping through Albums ID in API
-            for (var i = 100000; i < 200000; i++)
+            for (var i = 116600; i < 300000; i++)
             {
                 // API connection
                 var url = $"https://api.deezer.com/album/{i}";
@@ -73,33 +73,40 @@ namespace data_generator
                     }
 
                     // Insert genre
-                    var insertGenre = $@"INSERT INTO ""Genres""
+                    try
+                    {
+                        var insertGenre = $@"INSERT INTO ""Genres""
                                   VALUES ({album.Genres.Data[0].Id}, $${album.Genres.Data[0].Name}$$);";
 
-                    var genreExistCheck =
-                        $@"SELECT EXISTS(SELECT 1 FROM ""Genres"" WHERE id = {album.Genres.Data[0].Id});";
+                        var genreExistCheck =
+                            $@"SELECT EXISTS(SELECT 1 FROM ""Genres"" WHERE id = {album.Genres.Data[0].Id});";
 
-                    bool genreInDb = false;
+                        bool genreInDb = false;
 
-                    // Check for key duplicates
-                    await using (var cmd = new NpgsqlCommand(genreExistCheck, conn))
-                    {
-                        var tokenSource = new CancellationTokenSource();
-
-                        using (var reader = cmd.ExecuteReader())
-                            while (await reader.ReadAsync())
-                            {
-                                genreInDb = reader.GetFieldValue<Boolean>(0);
-                            }
-                    }
-
-                    // Adding new Genre to db
-                    if (!genreInDb)
-                    {
-                        await using (var cmd = new NpgsqlCommand(insertGenre, conn))
+                        // Check for key duplicates
+                        await using (var cmd = new NpgsqlCommand(genreExistCheck, conn))
                         {
-                            await cmd.ExecuteNonQueryAsync();
+                            var tokenSource = new CancellationTokenSource();
+
+                            using (var reader = cmd.ExecuteReader())
+                                while (await reader.ReadAsync())
+                                {
+                                    genreInDb = reader.GetFieldValue<Boolean>(0);
+                                }
                         }
+
+                        // Adding new Genre to db
+                        if (!genreInDb)
+                        {
+                            await using (var cmd = new NpgsqlCommand(insertGenre, conn))
+                            {
+                                await cmd.ExecuteNonQueryAsync();
+                            }
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        Console.WriteLine("index out of range");
                     }
                 }
 
@@ -107,16 +114,23 @@ namespace data_generator
                 Console.WriteLine($"{album.Id}: {album.Title}");
 
                 // Tracks Insert
-                foreach (var track in album.Tracks.Data)
+                try
                 {
-                    var insertTrack = $@"INSERT INTO ""Tracks""
+                    foreach (var track in album.Tracks.Data)
+                    {
+                        var insertTrack = $@"INSERT INTO ""Tracks""
                                       VALUES ({track.Id}, $${track.Title}$$, {track.Duration}, {track.Rank},
                                               '{album.Release_Date.ToDateString()}', {album.Id}, {album.Genres.Data[0].Id});";
 
-                    await using (var cmd = new NpgsqlCommand(insertTrack, conn))
-                    {
-                        await cmd.ExecuteNonQueryAsync();
+                        await using (var cmd = new NpgsqlCommand(insertTrack, conn))
+                        {
+                            await cmd.ExecuteNonQueryAsync();
+                        }
                     }
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    Console.WriteLine("index out of range");
                 }
             }
         }

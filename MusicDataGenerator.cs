@@ -19,7 +19,7 @@ namespace data_generator
             var httpClient = HttpClientFactory.Create();
 
             // Looping through Albums ID in API
-            for (var i = 116600; i < 300000; i++)
+            for (var i = 126000; i < 300000; i++)
             {
                 // API connection
                 var url = $"https://api.deezer.com/album/{i}";

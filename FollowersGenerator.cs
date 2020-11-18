@@ -13,9 +13,9 @@ namespace data_generator
             
 
             Random random = new Random();
-            for (int i = 1; i < 100001; i++)
+            for (int i = 1; i < 200001; i++)
             {
-                var queryString = $"INSERT INTO \"Followers\" VALUES({i},{random.Next(1, 100000)},{random.Next(1, 100000)})";
+                var queryString = $"INSERT INTO \"Followers\" VALUES({i},{random.Next(1, 250001)},{random.Next(1, 250001)})";
                 Console.WriteLine(queryString);
                 await using (var cmd = new NpgsqlCommand(queryString, con))
                 {

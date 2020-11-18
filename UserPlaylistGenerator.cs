@@ -12,9 +12,9 @@ namespace data_generator
         public async Task PopulateUserPlaylists(NpgsqlConnection con)
         {
             Random random = new Random();
-            for (int i = 1; i < 100001; i++)
+            for (int i = 1; i < 500000; i++)
             {
-                var queryString = $"INSERT INTO \"User_playlists\" VALUES({i},{random.Next(1,250000)})";
+                var queryString = $"INSERT INTO \"user_playlists\" VALUES({i},{random.Next(1,250000)})";
                 Console.WriteLine(queryString);
                 await using (var cmd = new NpgsqlCommand(queryString, con))
                 {
@@ -27,4 +27,4 @@ namespace data_generator
         
 
     }
-}
+} 

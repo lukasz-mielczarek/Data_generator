@@ -15,7 +15,7 @@ namespace data_generator
             // skrypty działają jeżeli z tabel favourite_songs/albums/artists wywalimy foreign keye dla track_id/album_id itd,
             // no idea dlaczego tak.
             
-            //extracting album id
+            //extracting album id for later use in the main loop
             var AlbumDT = new DataTable();
             var AlbumIdCheck =
                 $@"SELECT id FROM ""Albums"";";
@@ -40,7 +40,7 @@ namespace data_generator
             
             
             
-            //extracting artist id
+            //extracting artist id for later use in the main loop
             var ArtistDT = new DataTable();
             var ArtistIdSelect =
                 $@"SELECT id FROM ""Artists"";";
@@ -62,7 +62,7 @@ namespace data_generator
                 }
             }
             
-            //extracting song ids
+            //extracting song ids for later use
             var TrackDT = new DataTable();
             var TrackIdSelect =
                 $@"SELECT id FROM ""Tracks"";";

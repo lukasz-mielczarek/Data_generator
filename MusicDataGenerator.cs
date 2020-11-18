@@ -19,7 +19,7 @@ namespace data_generator
             var httpClient = HttpClientFactory.Create();
 
             // Looping through Albums ID in API
-            for (var i = 116600; i < 300000; i++)
+            for (var i = 129830; i < 300000; i++)
             {
                 // API connection
                 var url = $"https://api.deezer.com/album/{i}";
@@ -49,6 +49,8 @@ namespace data_generator
                         using (var reader = cmd.ExecuteReader())
                             while (await reader.ReadAsync())
                             {
+                                
+                                foreach(var j in reader )
                                 artistInDb = reader.GetFieldValue<Boolean>(0);
                             }
                     }

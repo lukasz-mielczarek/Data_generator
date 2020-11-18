@@ -13,9 +13,13 @@ namespace data_generator
             Connection connection = new Connection();
             await using var con = connection.GetConnection();
             await con.OpenAsync();
+            
+  
+            FavouritesGenerator favouritesGenerator = new FavouritesGenerator();
+            await favouritesGenerator.PopulateFavourites(con);
 
-            MusicDataGenerator musicDataGenerator = new MusicDataGenerator();
-            await musicDataGenerator.PopulateDataMusic(con);
+            // MusicDataGenerator musicDataGenerator = new MusicDataGenerator();
+            // await musicDataGenerator.PopulateDataMusic(con);
 
             /*UserPlaylistGenerator userPlaylistGenerator = new UserPlaylistGenerator();
             await userPlaylistGenerator.PopulateUserPlaylists(con);*/

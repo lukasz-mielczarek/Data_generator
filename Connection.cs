@@ -11,7 +11,7 @@ namespace data_generator
         public NpgsqlConnection ConnectionDB;
         public NpgsqlConnection GetConnection()
         {
-            var cs = "Host=localhost;Username=postgres;Password=mam5lat;Database=SongDB";
+            var cs = "Host=localhost;Username=Damian;Password=password;Database=songdb";
 
             
             

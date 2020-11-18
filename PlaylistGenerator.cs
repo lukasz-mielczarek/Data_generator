@@ -13,9 +13,9 @@ namespace data_generator
             UserGenerator nameGenerator = new UserGenerator();
 
             Random random = new Random();
-            for (int i = 1; i < 100001; i++)
+            for (int i = 1; i < 700001; i++)
             {
-                var queryString = $"INSERT INTO \"Playlists\" VALUES({i},'{nameGenerator.RandomPassword(random.Next(5,10))}',{random.Next(1, 100000)})";
+                var queryString = $"INSERT INTO \"Playlists\" VALUES({i},'{nameGenerator.RandomPassword(random.Next(5,10))}',{random.Next(1, 500000)})";
                 Console.WriteLine(queryString);
                 await using (var cmd = new NpgsqlCommand(queryString, con))
                 {
